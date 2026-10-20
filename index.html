@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hometown Scholars Project · Reading tutoring for grades K–6</title>
+<meta name="description" content="Hometown Scholars Project helps kids in grades K–6 become confident readers with a volunteer tutor, twice a week.">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e53b25;
+    --red-dark: #c42f1b;
+    --blue: #0a6ebe;
+    --blue-dark: #07528f;
+    --navy: #13294b;
+    --sky: #eaf3fb;
+    --text: #2b3445;
+    --muted: #5b6577;
+    --wrap: 76rem;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: "Nunito Sans", "Segoe UI", Arial, sans-serif; font-size: 1.1rem; line-height: 1.65; color: var(--text); background: #fff; }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3, h4 { font-family: "Poppins", "Segoe UI", Arial, sans-serif; color: var(--navy); line-height: 1.15; margin: 0 0 .75rem; }
+  a { color: var(--blue); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 1.5rem; }
+  .skip { position: absolute; left: -999px; }
+  .skip:focus { left: 1rem; top: 1rem; background: #fff; padding: .5rem 1rem; z-index: 10; }
+
+  .btn { display: inline-block; font-family: "Poppins", sans-serif; font-weight: 700; font-size: 1rem; text-decoration: none; padding: .85rem 1.9rem; border-radius: 999px; transition: background .15s; }
+  .btn-red { background: var(--red); color: #fff; }
+  .btn-red:hover { background: var(--red-dark); }
+  .btn-blue { background: var(--blue); color: #fff; }
+  .btn-blue:hover { background: var(--blue-dark); }
+  .btn-white { background: #fff; color: var(--red); }
+  .btn-white:hover { background: var(--sky); }
+  .link-arrow { font-family: "Poppins", sans-serif; font-weight: 700; color: var(--blue); text-decoration: none; border-bottom: 2px solid currentColor; }
+
+  /* Header */
+  header { background: #fff; position: sticky; top: 0; z-index: 5; box-shadow: 0 2px 10px rgba(19,41,75,.08); }
+  header .wrap { display: flex; align-items: center; gap: 2rem; height: 5.5rem; }
+  .logo img { height: 4rem; width: auto; }
+  nav { margin-left: auto; display: flex; align-items: center; gap: 2rem; }
+  nav a { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 1rem; color: var(--navy); text-decoration: none; }
+  nav a:hover { color: var(--red); }
+  nav .btn { color: #fff; padding: .6rem 1.5rem; }
+
+  /* Hero: rotating photos + headline block */
+  .hero { position: relative; min-height: 38rem; display: flex; align-items: flex-end; overflow: hidden; background: var(--navy); }
+  .slides img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+  .slides img.on { opacity: 1; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(19,41,75,.55), rgba(19,41,75,0) 55%); }
+  .hero .wrap { position: relative; z-index: 2; width: 100%; padding-bottom: 3.5rem; }
+  .hero-card { background: var(--red); color: #fff; max-width: 38rem; padding: 2.5rem 2.75rem; border-radius: 0 3rem 0 3rem; }
+  .hero-card h1 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; }
+  .hero-card p { font-size: 1.2rem; margin: 0 0 1.75rem; }
+  .pause { position: absolute; right: 1.5rem; bottom: 1.5rem; z-index: 3; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 0; background: rgba(255,255,255,.9); color: var(--navy); font-size: 1rem; cursor: pointer; }
+
+  /* Wave divider */
+  .wave { display: block; width: 100%; height: 60px; }
+
+  /* Key terms strip */
+  .terms { background: var(--sky); padding: 3.5rem 0 4rem; }
+  .terms h2 { font-size: 1.6rem; text-align: center; margin-bottom: 2rem; }
+  .term-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.25rem; }
+  .term { background: #fff; border-radius: 1.25rem; padding: 1.5rem; box-shadow: 0 4px 14px rgba(19,41,75,.06); }
+  .term h3 { font-size: 1.1rem; color: var(--blue); }
+  .term p { margin: 0; font-size: 1rem; color: var(--muted); }
+
+  /* Programs that work */
+  .programs { padding: 5rem 0 3rem; }
+  .programs > .wrap > h2 { font-size: clamp(2rem, 4vw, 2.75rem); text-align: center; margin-bottom: 3rem; }
+  .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; margin-bottom: 4.5rem; }
+  .feature.flip .feature-img { order: 2; }
+  .feature-img { position: relative; }
+  .feature-img img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3rem 0 3rem 0; background: var(--sky); }
+  .feature-img::before { content: ""; position: absolute; width: 45%; height: 45%; background: var(--blue); border-radius: 0 0 2rem 0; left: -1.25rem; bottom: -1.25rem; z-index: -1; }
+  .feature.flip .feature-img::before { background: var(--red); left: auto; right: -1.25rem; border-radius: 0 0 0 2rem; }
+  .feature-img { isolation: isolate; }
+  .big-stat { font-family: "Poppins", sans-serif; font-weight: 800; font-size: clamp(3.5rem, 8vw, 5.5rem); line-height: 1; color: var(--red); }
+  .big-stat.blue { color: var(--blue); }
+  .stat-label { font-size: 1.25rem; font-weight: 700; color: var(--navy); margin: .5rem 0 1.25rem; }
+  blockquote { margin: 0 0 1.5rem; padding-left: 1.5rem; border-left: 5px solid var(--red); font-size: 1.3rem; font-style: italic; color: var(--navy); }
+  blockquote em { font-style: normal; font-weight: 700; color: var(--red); }
+  blockquote cite { display: block; margin-top: .75rem; font-size: 1rem; color: var(--muted); }
+
+  /* Skills */
+  .skills { background: var(--navy); color: #fff; padding: 3rem 0 5rem; margin-top: -1px; }
+  .skills h2 { color: #fff; font-size: clamp(2rem, 4vw, 2.5rem); }
+  .skills .intro { max-width: 40rem; margin-bottom: 2.5rem; color: #d6e0ee; }
+  .skill-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+  .skill { border-top: 4px solid var(--red); padding-top: 1rem; }
+  .skill:nth-child(even) { border-color: #5fa8e6; }
+  .skill h3 { color: #fff; font-size: 1.1rem; }
+  .skill p { margin: 0; font-size: .98rem; color: #c9d5e6; }
+
+  /* Location */
+  .location { padding: 5rem 0; }
+  .location .wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: center; }
+  .loc-card { background: var(--sky); border-radius: 2rem; padding: 2.5rem; }
+  .pin { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.25rem; }
+  .pin svg { flex: none; }
+  .pin h4 { margin: 0; font-size: 1.15rem; }
+  .pin p { margin: 0; color: var(--muted); }
+
+  /* Take action */
+  .action { background: var(--sky); padding: 5rem 0; }
+  .action h2 { font-size: clamp(2rem, 4vw, 2.75rem); text-align: center; margin-bottom: 2.5rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.5rem; }
+  .card { background: #fff; border-radius: 1.5rem; padding: 2rem 1.75rem; text-decoration: none; color: var(--text); box-shadow: 0 4px 14px rgba(19,41,75,.07); transition: transform .15s; display: block; }
+  .card:hover { transform: translateY(-4px); }
+  .card .icon { width: 3.5rem; height: 3.5rem; border-radius: 50%; display: grid; place-items: center; margin-bottom: 1.25rem; }
+  .card:nth-child(odd) .icon { background: var(--red); }
+  .card:nth-child(even) .icon { background: var(--blue); }
+  .card h3 { font-size: 1.35rem; }
+  .card p { margin: 0; color: var(--muted); font-size: 1rem; }
+
+  /* FAQ */
+  .faq { padding: 5rem 0; }
+  .faq .wrap { max-width: 50rem; }
+  .faq h2 { font-size: clamp(2rem, 4vw, 2.5rem); text-align: center; margin-bottom: 2rem; }
+  details { border-bottom: 2px solid var(--sky); padding: 1.1rem 0; }
+  summary { cursor: pointer; font-family: "Poppins", sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--navy); }
+  summary::marker { color: var(--red); }
+  details p { margin: .75rem 0 0; color: var(--muted); }
+
+  /* Enroll banner */
+  .banner { background: var(--red); color: #fff; padding: 4rem 0; text-align: center; }
+  .banner h2 { color: #fff; font-size: clamp(1.9rem, 4vw, 2.6rem); }
+  .banner p { max-width: 36rem; margin: 0 auto 2rem; font-size: 1.15rem; }
+
+  /* Footer */
+  footer { background: var(--navy); color: #c9d5e6; padding: 4rem 0 2rem; font-size: 1rem; }
+  .foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2rem; }
+  footer img { height: 5rem; width: auto; background: #fff; border-radius: .75rem; padding: .3rem; margin-bottom: 1rem; }
+  footer h4 { color: #fff; font-size: 1rem; }
+  footer ul { list-style: none; margin: 0; padding: 0; }
+  footer li { margin-bottom: .4rem; }
+  footer a { color: #c9d5e6; text-decoration: none; }
+  footer a:hover { color: #fff; text-decoration: underline; }
+  .copy { border-top: 1px solid rgba(255,255,255,.15); margin-top: 3rem; padding-top: 1.5rem; font-size: .9rem; }
+
+  @media (max-width: 60rem) {
+    .feature, .location .wrap { grid-template-columns: 1fr; gap: 2rem; }
+    .feature.flip .feature-img { order: 0; }
+    .skill-row { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 44rem) {
+    nav a:not(.btn) { display: none; }
+    header .wrap { height: 4.5rem; }
+    .logo img { height: 3.25rem; }
+    .hero { min-height: 32rem; }
+    .hero-card { padding: 1.75rem; border-radius: 0 2rem 0 2rem; }
+    .skill-row, .foot-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .slides img { transition: none; } .card { transition: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#"><img src="logo.webp" alt="Hometown Scholars Project"></a>
+    <nav aria-label="Main">
+      <a href="#programs">Our program</a>
+      <a href="#location">Where we tutor</a>
+      <a href="#action">Get involved</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-red" href="#enroll">Enroll</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO. Photos are free Unsplash placeholders; swap for your own later. -->
+  <section class="hero">
+    <div class="slides" aria-hidden="true">
+      <img class="on" src="https://images.unsplash.com/photo-1758685733907-42e9651721f5?auto=format&fit=crop&w=1800&q=70" alt="">
+      <img src="https://images.unsplash.com/photo-1583468982228-19f19164aee2?auto=format&fit=crop&w=1800&q=70" alt="">
+      <img src="https://images.unsplash.com/photo-1780844824360-6fced13c828f?auto=format&fit=crop&w=1800&q=70" alt="">
+    </div>
+    <div class="wrap">
+      <div class="hero-card">
+        <h1>Every kid deserves to love reading.</h1>
+        <p>Twice-weekly reading tutoring for kids in kindergarten through 6th grade, taught by volunteers from our own community.</p>
+        <a class="btn btn-white" href="#enroll">Enroll your child</a>
+      </div>
+    </div>
+    <button class="pause" type="button" aria-label="Pause slideshow">❚❚</button>
+  </section>
+
+  <!-- KEY TERMS -->
+  <section class="terms">
+    <div class="wrap">
+      <h2>What makes our tutoring work</h2>
+      <div class="term-grid">
+        <div class="term"><h3>Twice a week</h3><p>Kids meet with a tutor two times every week. Frequent practice is what builds lasting reading skills.</p></div>
+        <div class="term"><h3>Standards-based</h3><p>Every lesson is matched to Utah’s reading standards for your child’s grade.</p></div>
+        <div class="term"><h3>Five core skills</h3><p>Lessons cover the five skills research shows every reader needs, from sounds to understanding stories.</p></div>
+        <div class="term"><h3>Step-by-step lessons</h3><p>Tutors follow a written plan for every session, so each visit builds on the last.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS THAT WORK -->
+  <section class="programs" id="programs">
+    <div class="wrap">
+      <h2>A program built for young readers</h2>
+
+      <div class="feature">
+        <div class="feature-img"><img src="https://images.unsplash.com/photo-1758685733985-695e588224d5?auto=format&fit=crop&w=1200&q=70" alt="A volunteer tutor working one-on-one with a young student at a desk" loading="lazy"></div>
+        <div>
+          <div class="big-stat">35 min</div>
+          <p class="stat-label">sessions, twice every week</p>
+          <p>In the first session of the week, the tutor teaches one reading skill and practices it with your child. In the second, your child uses that skill on their own with new words and short stories.</p>
+          <a class="link-arrow" href="#skills">See what kids practice</a>
+        </div>
+      </div>
+
+      <div class="feature flip">
+        <div class="feature-img"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=70" alt="A teacher leading a classroom of elementary students" loading="lazy"></div>
+        <div>
+          <div class="big-stat blue">K–6</div>
+          <p class="stat-label">lessons written for every grade</p>
+          <!-- TODO: replace with a real quote from a family or tutor, or delete this blockquote -->
+          <blockquote>“[A quote from a parent or tutor goes here, with <em>one key phrase</em> highlighted.]”<cite>[Name, relationship to the program]</cite></blockquote>
+          <a class="btn btn-blue" href="#enroll">Sign up your child</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30c240-40 480 40 720 10S1200-10 1440 30v30z" fill="#13294b"/></svg>
+  <section class="skills" id="skills">
+    <div class="wrap">
+      <h2>What your child will practice</h2>
+      <p class="intro">Strong reading takes five skills working together. Every grade’s lessons cover all five.</p>
+      <div class="skill-row">
+        <div class="skill"><h3>Phonemic awareness</h3><p>Hearing the separate sounds inside spoken words.</p></div>
+        <div class="skill"><h3>Phonics</h3><p>Matching letters to sounds to sound out new words.</p></div>
+        <div class="skill"><h3>Fluency</h3><p>Reading smoothly, at a steady pace, with expression.</p></div>
+        <div class="skill"><h3>Vocabulary</h3><p>Learning the words that make harder books make sense.</p></div>
+        <div class="skill"><h3>Comprehension</h3><p>Understanding, retelling, and talking about what they read.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="location" id="location">
+    <div class="wrap">
+      <div>
+        <h2 style="font-size:clamp(2rem,4vw,2.5rem)">Where we tutor</h2>
+        <p>Hometown Scholars Project brings reading help right into the community. Find a location near you.</p>
+      </div>
+      <div class="loc-card">
+        <!-- TODO: fill in real locations; copy the .pin block for each one -->
+        <div class="pin">
+          <svg width="28" height="36" viewBox="0 0 28 36" aria-hidden="true"><path d="M14 0C6.3 0 0 6.1 0 13.7 0 24 14 36 14 36s14-12 14-22.3C28 6.1 21.7 0 14 0z" fill="#e53b25"/><circle cx="14" cy="13.5" r="5" fill="#fff"/></svg>
+          <div><h4>[Location name]</h4><p>[Address · Days and times]</p></div>
+        </div>
+        <div class="pin">
+          <svg width="28" height="36" viewBox="0 0 28 36" aria-hidden="true"><path d="M14 0C6.3 0 0 6.1 0 13.7 0 24 14 36 14 36s14-12 14-22.3C28 6.1 21.7 0 14 0z" fill="#0a6ebe"/><circle cx="14" cy="13.5" r="5" fill="#fff"/></svg>
+          <div><h4>[Second location, if any]</h4><p>[Address · Days and times]</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAKE ACTION -->
+  <section class="action" id="action">
+    <div class="wrap">
+      <h2>Take action</h2>
+      <div class="cards">
+        <!-- TODO: replace form link -->
+        <a class="card" href="https://forms.gle/REPLACE_ME">
+          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H2zM22 5h-7a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h8z"/></svg></div>
+          <h3>Enroll</h3><p>Sign up your K–6 student for twice-weekly reading tutoring.</p>
+        </a>
+        <!-- TODO: replace email -->
+        <a class="card" href="mailto:hello@example.org?subject=Volunteering">
+          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+          <h3>Volunteer</h3><p>Become a tutor. Every lesson comes with a step-by-step plan, so no teaching experience is needed.</p>
+        </a>
+        <!-- TODO: donation link, or delete this card -->
+        <a class="card" href="mailto:hello@example.org?subject=Supporting%20Hometown%20Scholars">
+          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></div>
+          <h3>Support us</h3><p>Help us reach more kids in our hometown with books, supplies, and space to learn.</p>
+        </a>
+        <a class="card" href="#faq">
+          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
+          <h3>Ask a question</h3><p>Find answers about cost, schedules, and how our program works.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <h2>Questions families ask</h2>
+      <!-- TODO: confirm cost -->
+      <details><summary>Does it cost anything?</summary><p>[Cost details]</p></details>
+      <details><summary>Where and when are sessions held?</summary><p>See <a href="#location">Where we tutor</a> above for locations and times.</p></details>
+      <details><summary>Who are the tutors?</summary><p>Tutors are volunteers from the community. They follow a written lesson plan for every session, built around your child’s grade level.</p></details>
+      <details><summary>My child is in 6th grade. Are they too old?</summary><p>No. We serve every grade from kindergarten through 6th grade, with lessons written for each one.</p></details>
+      <!-- TODO: confirm this matches your process -->
+      <details><summary>What happens after I sign up?</summary><p>We’ll contact you to set up a regular session time that works for your family.</p></details>
+    </div>
+  </section>
+
+  <!-- ENROLL BANNER -->
+  <section class="banner" id="enroll">
+    <div class="wrap">
+      <h2>Ready to get started?</h2>
+      <p>Fill out a short form with your child’s name, grade, and the best way to reach you. We’ll take it from there.</p>
+      <!-- TODO: replace form link -->
+      <a class="btn btn-white" href="https://forms.gle/REPLACE_ME">Open the enrollment form</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img src="logo.webp" alt="Hometown Scholars Project">
+        <p>Helping kids in grades K–6 become confident readers.</p>
+      </div>
+      <div>
+        <h4>Get involved</h4>
+        <ul>
+          <li><a href="#enroll">Enroll your child</a></li>
+          <li><a href="mailto:hello@example.org?subject=Volunteering">Volunteer</a></li>
+          <li><a href="#location">Locations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <!-- TODO: replace email -->
+        <ul>
+          <li><a href="mailto:hello@example.org">hello@example.org</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copy">© 2026 Hometown Scholars Project</p>
+  </div>
+</footer>
+
+<script>
+  // Hero slideshow with pause button
+  (function () {
+    var imgs = document.querySelectorAll('.slides img');
+    var btn = document.querySelector('.pause');
+    var i = 0, timer = null;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function next() { imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on'); }
+    function play() { timer = setInterval(next, 6000); btn.textContent = '❚❚'; btn.setAttribute('aria-label', 'Pause slideshow'); }
+    function stop() { clearInterval(timer); timer = null; btn.textContent = '▶'; btn.setAttribute('aria-label', 'Play slideshow'); }
+    btn.addEventListener('click', function () { timer ? stop() : play(); });
+    reduce ? stop() : play();
+  })();
+</script>
+</body>
+</html>

@@ -21,12 +21,15 @@
   <div class="wrap">
     <a class="logo" href="/"><img src="/logo.webp" alt="Hometown Scholars Project"></a>
     <nav aria-label="Main">
-      <a href="/#programs">Our program</a>
-      <a class="hide-md" href="/about/" aria-current="page">About us</a>
-      <a href="/#location">Location</a>
-      <a href="/#volunteer">Volunteer</a>
-      <a class="hide-md" href="/#faq">FAQ</a>
+      <div class="nav-links" id="nav-links">
+        <a href="/#programs">Our program</a>
+        <a href="/about/" aria-current="page">About us</a>
+        <a href="/#location">Location</a>
+        <a href="/#volunteer">Volunteer</a>
+        <a href="/#faq">FAQ</a>
+      </div>
       <a class="lang" href="/es/about/" hreflang="es" lang="es">Español</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
       <a class="btn btn-red" href="/#enroll">Enroll</a>
     </nav>
   </div>
@@ -143,5 +146,6 @@
     <p class="copy">© 2026 Hometown Scholars Project · Springville, Utah</p>
   </div>
 </footer>
+<script src="/site.js" defer></script>
 </body>
 </html>

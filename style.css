@@ -35,12 +35,17 @@ section[id] { scroll-margin-top: 6rem; }
 /* Header */
 header { background: #fff; position: sticky; top: 0; z-index: 5; box-shadow: 0 2px 10px rgba(19,41,75,.08); }
 header .wrap { display: flex; align-items: center; gap: 2rem; height: 5.5rem; }
+.logo { flex: none; }
 .logo img { height: 4rem; width: auto; }
 nav { margin-left: auto; display: flex; align-items: center; gap: 1.75rem; }
 nav a { font-family: "Poppins", sans-serif; font-weight: 600; font-size: 1rem; color: var(--navy); text-decoration: none; }
 nav a:hover { color: var(--red); }
 nav .btn { color: #fff; padding: .6rem 1.5rem; }
 nav .lang { border: 2px solid var(--sky); border-radius: 999px; padding: .35rem .9rem; font-size: .9rem; }
+.nav-links { display: flex; align-items: center; gap: 1.75rem; }
+nav a[aria-current="page"] { color: var(--red); }
+.menu-btn { display: none; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 2px solid var(--sky); border-radius: 50%; background: #fff; color: var(--navy); cursor: pointer; }
+.menu-btn:hover { color: var(--red); }
 
 /* Hero */
 .hero { position: relative; min-height: 38rem; display: flex; align-items: flex-end; overflow: hidden; background: var(--navy); }
@@ -182,8 +187,14 @@ footer a { color: #c9d5e6; text-decoration: none; }
 footer a:hover { color: #fff; text-decoration: underline; }
 .copy { border-top: 1px solid rgba(255,255,255,.15); margin-top: 3rem; padding-top: 1.5rem; font-size: .9rem; }
 
+/* Below 64rem the section links move into the three-lines menu */
 @media (max-width: 64rem) {
-  nav a.hide-md { display: none; }
+  nav { gap: .75rem; }
+  .menu-btn { display: grid; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #fff; box-shadow: 0 12px 20px rgba(19,41,75,.12); border-top: 1px solid var(--sky); }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 1rem 1.5rem; font-size: 1.1rem; border-bottom: 1px solid var(--sky); }
+  .nav-links a:last-child { border-bottom: 0; }
 }
 @media (max-width: 60rem) {
   .feature, .location .wrap, .about .wrap, .volunteer .wrap { grid-template-columns: 1fr; gap: 2rem; }
@@ -194,14 +205,39 @@ footer a:hover { color: #fff; text-decoration: underline; }
   .photo-strip.three { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 44rem) {
-  nav { gap: .75rem; }
-  nav a:not(.btn):not(.lang) { display: none; }
-  header .wrap { height: 4.5rem; gap: 1rem; }
+  nav { gap: .5rem; }
+  header .wrap { height: 4.5rem; gap: .75rem; padding: 0 1rem; }
+  nav .btn { padding: .55rem 1.1rem; }
+  nav .lang { padding: .3rem .7rem; }
   .logo img { height: 3.25rem; }
   .hero { min-height: 32rem; }
   .hero-card { padding: 1.75rem; border-radius: 0 2rem 0 2rem; }
   .skill-row, .foot-grid, .photo-strip.two, .photo-strip.three { grid-template-columns: 1fr; }
+  body { font-size: 1.05rem; }
+  .programs, .about, .location, .volunteer, .faq, .founders, .action, .cta { padding: 3.25rem 0; }
+  .story { padding: 3.25rem 0 1rem; }
+  .terms { padding: 2.75rem 0 3rem; }
+  .skills { padding: 2rem 0 3.25rem; }
+  .banner { padding: 3rem 0; }
+  .hometown { padding-bottom: 3.25rem; }
+  footer { padding: 3rem 0 1.5rem; }
+  .programs > .wrap > h2 { margin-bottom: 2rem; }
+  .feature { margin-bottom: 3rem; }
+  .hero-card p { font-size: 1.05rem; margin-bottom: 1.25rem; }
+  .page-hero { min-height: 22rem; }
+  .term { padding: 1.15rem 1.25rem; }
+  .term-grid { gap: .85rem; }
+  .loc-card, .req-card, .about-badge, .founder { padding: 1.6rem; }
+  .founder .avatar { width: 6.5rem; height: 6.5rem; }
+  .story h2 { margin-top: 1.75rem; }
+  .banner .btn { display: block; margin: 0 auto .75rem; max-width: 20rem; }
+  .banner .btn + .btn { margin-left: auto !important; }
   .cta .btn { display: block; margin: 0 auto .75rem; max-width: 20rem; }
   .cta .btn + .btn { margin-left: auto; }
+}
+@media (max-width: 22rem) {
+  nav .lang { font-size: .8rem; padding: .25rem .55rem; }
+  nav .btn { padding: .5rem .85rem; font-size: .9rem; }
+  .menu-btn { width: 2.5rem; height: 2.5rem; }
 }
 @media (prefers-reduced-motion: reduce) { .slides img { transition: none; } html { scroll-behavior: auto; } }

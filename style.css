@@ -115,6 +115,9 @@ figcaption { margin-top: .6rem; font-family: "Poppins", sans-serif; font-weight:
 figcaption a { display: block; font-family: "Nunito Sans", sans-serif; font-weight: 400; font-size: .8rem; color: var(--muted); text-decoration: none; }
 figcaption a:hover { text-decoration: underline; }
 .loc-photo { margin-top: 1.75rem; }
+.vol-photo { margin-top: 2rem; }
+.vol-photo img { border-radius: 2rem 0 2rem 0; aspect-ratio: 4 / 3; }
+.feature-img img { object-position: center 35%; }
 .loc-photo img { border-radius: 0 2rem 0 2rem; }
 
 /* About page */
